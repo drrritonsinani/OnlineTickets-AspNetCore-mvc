@@ -17,7 +17,8 @@ namespace OnlineTickets.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var data = _context.Producers.ToList();
+            return View(data);
         }
     }
 }
