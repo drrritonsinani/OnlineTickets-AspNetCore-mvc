@@ -145,8 +145,8 @@ namespace OnlineTickets.Data
                             Description = "This is the Life movie description",
                             Price = 39.50,
                             MovieUrl = "http://dotnethow.net/images/movies/movie-3.jpeg",
-                            StartDate = DateTime.Now.AddDays(-10),
-                            EndDate = DateTime.Now.AddDays(10),
+                            StartDate = DateTime.Now.AddDays(10),
+                            EndDate = DateTime.Now.AddDays(20),
                             CinemaId = 3,
                             ProducerId = 3,
                             Category = MovieCategory.Documentary
@@ -181,8 +181,8 @@ namespace OnlineTickets.Data
                             Description = "This is the Race movie description",
                             Price = 39.50,
                             MovieUrl = "http://dotnethow.net/images/movies/movie-6.jpeg",
-                            StartDate = DateTime.Now.AddDays(-10),
-                            EndDate = DateTime.Now.AddDays(-5),
+                            StartDate = DateTime.Now.AddDays(5),
+                            EndDate = DateTime.Now.AddDays(15),
                             CinemaId = 1,
                             ProducerId = 2,
                             Category = MovieCategory.Documentary
