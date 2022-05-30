@@ -21,5 +21,12 @@ namespace OnlineTickets.Controllers
             var data = await _service.GetAllAsync(c => c.Cinema);
             return View(data);
         }
+
+        //Movie details
+        public async Task<IActionResult> Details(int id)
+        {
+            var movieDetails = await _service.GetMovieByIdAsync(id);
+            return View(movieDetails);
+        }
     }
 }
