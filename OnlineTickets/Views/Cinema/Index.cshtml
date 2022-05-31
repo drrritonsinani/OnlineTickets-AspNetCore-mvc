@@ -6,12 +6,7 @@
 
 <div class="row justify-content-center">
     <div class="col-auto">
-        <div class="text-white" style="padding-bottom: 5px; position: relative;">
-            <a asp-controller="Cinema" asp-action="Create" class="btn btn-success">
-                <i class="bi bi-plus-circle"></i>
-                Add cinema
-            </a>
-        </div>
+        @await Html.PartialAsync("_CreateItem", "Cinemas")
         <table class="table table-responsive">
             <thead>
                 <tr class="text-center">
