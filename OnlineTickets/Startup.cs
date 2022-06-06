@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using OnlineTickets.Data;
 using OnlineTickets.Data.Cart;
 using OnlineTickets.Data.Services;
+using OnlineTickets.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,9 +45,14 @@ namespace OnlineTickets
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
-
-
+            
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+            services.AddMemoryCache();
             services.AddSession();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            });
             services.AddControllersWithViews();
         }
 
@@ -67,6 +75,8 @@ namespace OnlineTickets
             app.UseRouting();
             app.UseSession();
 
+            
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -78,6 +88,7 @@ namespace OnlineTickets
 
             //Seed database - will run if no data on the database
             DbInitializer.Seed(app);
+            DbInitializer.SeedUsersAndRolesAsync(app).Wait();
         }
     }
 }

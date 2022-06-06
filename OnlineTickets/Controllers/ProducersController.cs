@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OnlineTickets.Data;
 using OnlineTickets.Data.Services;
+using OnlineTickets.Data.Static;
 using OnlineTickets.Models;
 using System;
 using System.Collections.Generic;
@@ -9,6 +11,8 @@ using System.Threading.Tasks;
 
 namespace OnlineTickets.Controllers
 {
+
+    [Authorize(Roles = UserRoles.Admin)]
     public class ProducersController : Controller
     {
         private readonly IProducersService _service;
@@ -17,6 +21,8 @@ namespace OnlineTickets.Controllers
         {
             _service = service;
         }
+
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var data = await _service.GetAllAsync();
@@ -42,6 +48,7 @@ namespace OnlineTickets.Controllers
         }
 
         //Details
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var producerDetails = await _service.GetByIdAsync(id);
